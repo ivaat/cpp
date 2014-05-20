@@ -32,3 +32,8 @@ Card* AbstractCardContainer::at(unsigned short index) {
     if (size() <= index) return 0; //mõelda veel kas see on hea lahendus
     else return cards.at(index);
 }
+
+void AbstractCardContainer::reset() {
+    cards.clear();
+    //TODO - decki puhul tuleb see subclassida ja lisada kaartide setup
+}
