@@ -19,6 +19,7 @@ public:
     void removeCardsAt(vector<unsigned short> indexes); //eemaldab kaarti mingitel indeksitel
     unsigned short size(); //tagastab kaartite arvu käes
     Card* at(unsigned short index); //tagastab kaarti mingil indeksil või 0
+    virtual void reset();
 };
 
 #endif
