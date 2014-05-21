@@ -2,6 +2,7 @@
 #define DECK_H
 
 #include "Card.h"
+#include "AbstractCardContainer.h"
 
 using namespace std;
 
@@ -11,11 +12,11 @@ enum DeckSize {
 
 //arvatavasti vaja Card includeda, et enumid kätte saada
 
-class Deck {
+class Deck : public AbstractCardContainer {
 
     private:
-        static const Suit SUITLAST = Spades;
-        static const Suit SUITFIRST = Clubs;
+        static const Suit SUITLAST = Diamonds;
+        static const Suit SUITFIRST = Spades;
 
         static const Rank RANKFIRST = Two;
         static const Rank RANKLAST = Ace;

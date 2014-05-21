@@ -21,7 +21,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent) {
 
-    this->setFixedSize(800, 600); //TODO - mingi õigem state
+    this->setFixedSize(1000, 800); //TODO - mingi õigem state
     this->setWindowTitle("Card Games");
 
     //m_state = INACTIVE; - TODO - pane mingi õige state

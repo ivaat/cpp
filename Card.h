@@ -3,11 +3,26 @@
 
 //seda annab ka paremini..
 enum Rank {
-    Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace
+    Two = 0,
+    Three = 1,
+    Four = 2,
+    Five = 3,
+    Six = 4,
+    Seven = 5,
+    Eight = 6,
+    Nine = 7,
+    Ten = 8,
+    Jack = 9,
+    Queen = 10,
+    King = 11,
+    Ace = 12
 };
 
 enum Suit {
-    Clubs, Diamonds, Hearts, Spades
+    Diamonds = 0,
+    Clubs = 1,
+    Hearts = 2,
+    Spades = 3
 };
 
 
@@ -22,8 +37,7 @@ public:
     Suit suit;
 
 
-    //~Card();   --- TODO
-
+    //~Card();   --- TODO    
 
 };
 

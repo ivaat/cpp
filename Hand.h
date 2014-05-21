@@ -1,7 +1,9 @@
 ﻿#ifndef HAND_H
 #define HAND_H
 
-class Hand {
+#include "AbstractCardContainer.h"
+
+class Hand : public AbstractCardContainer {
 
 public:
 

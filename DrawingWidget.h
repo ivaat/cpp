@@ -2,6 +2,19 @@
 #define DRAWINGWIDGET_H
 
 #include <QWidget>
+#include <QPixmap>
+#include <QSizeF>
+#include <QPointF>
+#include "Card.h"
+
+#define CARD_WIDTH 123 //TODO - adjustida kõiki neid, arvatavasti peab komakohaga olema
+#define CARD_HEIGHT 174
+
+#define CARDS_STARTING_X 78
+#define CARDS_STARTING_Y 46
+
+#define CARDS_DISTANCE_X 10
+#define CARDS_DISTANCE_Y 11
 
 class MainWindow;
 
@@ -14,6 +27,7 @@ class DrawingWidget: public QWidget {
         void newBlackjackGame();
         void newPokerGame();
         void newGameGenericSetup();
+        QPointF* getImagePointIndex(Card* card);
 
     protected:
         //void mousePressEvent(QMouseEvent *event);
@@ -23,6 +37,10 @@ class DrawingWidget: public QWidget {
 
 
         MainWindow *mainWindow;
+        bool drawDeck;
+        QPixmap cardsImage;
+        QSizeF cardSize;
+        QPointF cardPoints[53];
 };
 
 #endif // DRAWINGWIDGET_H
