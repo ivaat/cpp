@@ -33,3 +33,6 @@ HEADERS  += mainwindow.h \
     AbstractCardGame.h \
     AbstractHandEvaluator.h \
     DrawingWidget.h
+
+RESOURCES += \
+    assets.qrc

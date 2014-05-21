@@ -11,11 +11,16 @@ class DrawingWidget: public QWidget {
         DrawingWidget(MainWindow *parent = 0);
         ~DrawingWidget();
 
+        void newBlackjackGame();
+        void newPokerGame();
+        void newGameGenericSetup();
+
     protected:
         //void mousePressEvent(QMouseEvent *event);
         //void mouseReleaseEvent(QMouseEvent *event);
         //void mouseMoveEvent(QMouseEvent *event);
         void paintEvent(QPaintEvent *event);
+
 
         MainWindow *mainWindow;
 };

@@ -37,6 +37,8 @@ MainWindow::~MainWindow() {
 
 void MainWindow::newBlackjackGameSlot() {
     //TODO
+
+    drawingWidget->newBlackjackGame();
 }
 
 

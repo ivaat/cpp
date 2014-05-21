@@ -16,8 +16,9 @@ DrawingWidget::DrawingWidget(MainWindow *parent)
 
     //TODO - kuidas teha nii et ta image failid kaasa võtab?
 
-    setStyleSheet("background-color: white");
-    setStyleSheet("background-image: url(background2.jpeg); background-position: center; background-repeat: no-repeat");
+    setStyleSheet("border-image: url(:/assets/assets/background2.jpeg)");
+
+    //setStyleSheet("background-image: url(:/assets/assets/background2.jpeg); background-position: center; background-repeat: no-repeat; background-size: contain");
 
 }
 
@@ -35,6 +36,36 @@ void DrawingWidget::paintEvent(QPaintEvent *event) {
 
 
 
+}
+
+//paremini teha..
+
+void DrawingWidget::newBlackjackGame() {
+    newGameGenericSetup();
+
+
+}
+
+//paremini teha..
+
+void DrawingWidget::newPokerGame() {
+    newGameGenericSetup();
+
+
+
+}
+
+
+void DrawingWidget::newGameGenericSetup() {
+    setStyleSheet("border-image: url(:/assets/assets/background.jpeg)");
+    /*
+     * QRectF target(10.0, 20.0, 80.0, 60.0);
+ QRectF source(0.0, 0.0, 70.0, 40.0);
+ QPixmap pixmap(":myPixmap.png");
+
+ QPainter(this);
+ painter.drawPixmap(target, image, source);
+ */
 }
 
 
