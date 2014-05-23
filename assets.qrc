@@ -3,5 +3,6 @@
         <file>assets/background2.jpeg</file>
         <file>assets/background.jpeg</file>
         <file>assets/cards.jpg</file>
+        <file>assets/deck.jpeg</file>
     </qresource>
 </RCC>
