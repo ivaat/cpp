@@ -17,6 +17,7 @@ protected:
 public:
     virtual void addCard(Card* card); //siin default, hand alamklass kirjutab üle
     void removeCardsAt(vector<unsigned short> indexes); //eemaldab kaarti mingitel indeksitel
+    void removeSingleCardAt(unsigned short index);
     unsigned short size(); //tagastab kaartite arvu käes
     Card* at(unsigned short index); //tagastab kaarti mingil indeksil või 0
     virtual void reset(); //??? ei pea iga kord uut decki tegema..?

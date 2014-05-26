@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QString>
 //#include "drawingwidget.h"
+#include <QDebug>
 
 //alguses joonistab siia mingi tausta vms
 //ülevalt saad new game asju valida, selle peale joonistab siis üle
@@ -46,8 +47,11 @@ void MainWindow::newBlackjackGameSlot() {
     //TODO - alusta uut currentGamei siin
     //TODO - blackjack, poker jne ise enda kontsruktoris kutsuvad superit välja nagu vaja
     //vastava enumiga siis
+    currentGame = new BlackjackGame(Large);
     drawingWidget->newBlackjackGame();
 }
+
+
 
 
 void MainWindow::newPokerGameSlot() {

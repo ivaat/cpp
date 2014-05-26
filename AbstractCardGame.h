@@ -5,6 +5,7 @@
 #include "Card.h"
 #include "Hand.h"
 #include "SupportedGameTypes.h"
+#include <QString>
 
 
 enum State {
@@ -30,9 +31,10 @@ class AbstractCardGame {
         Hand* playerHand;
         Hand* dealerHand;
 
-        void transferCard(Card* card);  //deck > hand
+        void pickUpCard(Hand* hand);  //deck top card > hand
         State getState();
         SupportedGameTypes getType();
+        virtual QString getHandStrength(Hand* hand);
 };
 
 #endif

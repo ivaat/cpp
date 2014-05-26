@@ -8,6 +8,8 @@
 #include <QPointF>
 #include <QSizeF>
 #include "mainwindow.h"
+#include <QDebug>
+#include <QPushButton>
 
 
 /**
@@ -31,16 +33,14 @@ DrawingWidget::DrawingWidget(MainWindow *parent)
                        CARDS_STARTING_Y + 3 * (CARD_HEIGHT + CARDS_DISTANCE_Y),
                        */
 
-    for (int i = 0; i < 52; i++) {
-        int yPos = 0;
-        for (int j = 0; j < 13; j++) {
-            cardPoints[i] = QPointF(CARDS_STARTING_X + j * (CARD_WIDTH + CARDS_DISTANCE_X),
-                                    CARDS_STARTING_Y + yPos * (CARD_HEIGHT + CARDS_DISTANCE_Y));
-        }
-        yPos++;
-    }
-    cardPoints[52] = QPointF(1798.0, 418.0); //TODO - mõtle kas seda on vaja..
 
+    int i = 0;
+    for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < 13; x++) {
+            cardPoints[i++] = QPointF(CARDS_STARTING_X + x * (CARD_WIDTH + CARDS_DISTANCE_X),
+                                    CARDS_STARTING_Y + y * (CARD_HEIGHT + CARDS_DISTANCE_Y));
+        }
+    }
 
     drawDeck = false;
 
@@ -68,7 +68,7 @@ unsigned short DrawingWidget::calculateFirstCardStartingX(unsigned short cardsAm
         ret += CARD_WIDTH / 2;
     }
 
-    return ret;
+    return (500 - ret);
 }
 
 void DrawingWidget::paintEvent(QPaintEvent *event) {
@@ -77,68 +77,87 @@ void DrawingWidget::paintEvent(QPaintEvent *event) {
 
     QPainter painter(this);
     //painter.fillRect(event->rect(), Qt::black);
+
+
+
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 
-    drawDeck = true;
 
-
-    QFont font=painter.font() ;
-    font.setPointSize (18);
-    font.setWeight(QFont::DemiBold);
-    painter.setFont(font);
-    painter.setPen(Qt::white);
-
-    painter.drawText(QPoint(PLAYER_TEXT_X,PLAYER_TEXT_Y), "PLAYER");
-    painter.drawText(QPoint(DEALER_TEXT_X,DEALER_TEXT_Y), "DEALER");
 
     if (drawDeck) {
+
+        QFont font=painter.font() ;
+        font.setPointSize (18);
+        font.setWeight(QFont::DemiBold);
+        painter.setFont(font);
+        painter.setPen(Qt::white);
+
+        painter.drawText(QPoint(PLAYER_TEXT_X,PLAYER_TEXT_Y), "PLAYER: " + mainWindow->currentGame->getHandStrength(mainWindow->currentGame->playerHand));
+        painter.drawText(QPoint(DEALER_TEXT_X,DEALER_TEXT_Y), "DEALER");
+
+
         //TODO - defineeri kaartide laius ja pikkus
-        QPointF topLeft(10.0, 20.0);
+        int playerSize = mainWindow->currentGame->playerHand->size();
+        int playerStartingX = calculateFirstCardStartingX(playerSize);
 
-        QRectF target(topLeft, cardSize);
-
-        QRectF source(CARDS_STARTING_X, CARDS_STARTING_Y, CARD_WIDTH, CARD_HEIGHT);
-
-        //QRectF source(1798.0, 418.0, CARD_WIDTH, CARD_HEIGHT);
-
-        painter.drawPixmap(target, cardsImage, source);
-
-
-        QPointF topLeft2(200.0, 20.0);
-        QRectF target2(topLeft2, cardSize);
-
-        QRectF source2(CARDS_STARTING_X + CARD_WIDTH + CARDS_DISTANCE_X,
-                       CARDS_STARTING_Y,
-                       CARD_WIDTH,
-                       CARD_HEIGHT);
-
-        painter.drawPixmap(target2, cardsImage, source2);
-
-        QPointF topLeft3(400.0, 20.0);
-        QRectF target3(topLeft3, cardSize);
-
-        QRectF source3(CARDS_STARTING_X + 4 * (CARD_WIDTH + CARDS_DISTANCE_X),
-                       CARDS_STARTING_Y + 3 * (CARD_HEIGHT + CARDS_DISTANCE_Y),
-                       CARD_WIDTH,
-                       CARD_HEIGHT);
-
-        painter.drawPixmap(target3, cardsImage, source3);
+        for (int i = 0; i < playerSize; i++) {
+            int currentX = playerStartingX + i * (CARD_WIDTH + CARDS_DISTANCE_X);
+            QPointF topLeft(currentX,
+                            PLAYER_FIRST_CARD_Y);
+            QRectF target(topLeft, cardSize);
+            QPointF src1 = getImagePointIndex(mainWindow->currentGame->playerHand->at(i));
+            QRectF source(src1, cardSize);
+            painter.drawPixmap(target, cardsImage, source);
+        }
     }
 }
 
 
-QPointF* DrawingWidget::getImagePointIndex(Card* card) {
+QPointF DrawingWidget::getImagePointIndex(Card* card) {
     int index = card->suit * 13 + card->rank;
-    return &cardPoints[index];
+    qDebug() << "Getting image point index: ";
+    qDebug() << "Suit: " << card->suit;
+    qDebug() << "Rank: " << card->rank;
+    qDebug() << "Index: " << index;
+    qDebug() << cardPoints[index].x();
+    qDebug() << cardPoints[index].y();
+    return cardPoints[index];
 }
 
 //paremini teha..
+
+void DrawingWidget::blackjackHitActionSlot() {
+    qDebug() << "boo";
+    BlackjackGame* game = (BlackjackGame*) mainWindow->currentGame;
+    game->playerHit();
+    qDebug() << "boo2";
+    update();
+}
+
 
 void DrawingWidget::newBlackjackGame() {
+    drawDeck = true;
     newGameGenericSetup();
-}
 
-//paremini teha..
+
+
+    QPushButton *hit_button = new QPushButton(this);
+    hit_button->setText(tr("HIT"));
+    hit_button->move(BLACKJACK_HIT_BUTTON_X,
+                     BLACKJACK_HIT_BUTTON_Y);
+    hit_button->setStyleSheet("color: black; background-color: white; border-image: none; border-style: outset; border-width: 2px; border-radius: 10px; border-color: beige; font: bold 14px; min-width: 5em; padding: 6px;");
+    hit_button->setAutoFillBackground(true);
+    connect(hit_button, SIGNAL(released()), this, SLOT(blackjackHitActionSlot()));
+    hit_button->show();
+
+    QPushButton *stand_button = new QPushButton(this);
+    stand_button->setText(tr("STAND"));
+    stand_button->move(BLACKJACK_STAND_BUTTON_X,
+                       BLACKJACK_STAND_BUTTON_Y);
+    stand_button->setStyleSheet("color: red; background-color: white; border-image: none; border-style: outset; border-width: 2px; border-radius: 10px; border-color: beige; font: bold 14px; min-width: 5em; padding: 6px;");
+    stand_button->setAutoFillBackground(true);
+    stand_button->show();
+}
 
 void DrawingWidget::newPokerGame() {
     newGameGenericSetup();
@@ -208,4 +227,30 @@ void DrawingWidget::mouseMoveEvent(QMouseEvent *event) {
 
     update();
 }
+*/
+
+
+
+
+/*
+
+QPointF topLeft2(200.0, 20.0);
+QRectF target2(topLeft2, cardSize);
+
+QRectF source2(CARDS_STARTING_X + CARD_WIDTH + CARDS_DISTANCE_X,
+               CARDS_STARTING_Y,
+               CARD_WIDTH,
+               CARD_HEIGHT);
+
+painter.drawPixmap(target2, cardsImage, source2);
+
+QPointF topLeft3(400.0, 20.0);
+QRectF target3(topLeft3, cardSize);
+
+QRectF source3(CARDS_STARTING_X + 4 * (CARD_WIDTH + CARDS_DISTANCE_X),
+               CARDS_STARTING_Y + 3 * (CARD_HEIGHT + CARDS_DISTANCE_Y),
+               CARD_WIDTH,
+               CARD_HEIGHT);
+
+painter.drawPixmap(target3, cardsImage, source3);
 */

@@ -16,10 +16,10 @@
 #define CARDS_DISTANCE_X 9.5
 #define CARDS_DISTANCE_Y 11.5
 
-#define PLAYER_TEXT_X 400
-#define PLAYER_TEXT_Y 500
+#define PLAYER_TEXT_X 455
+#define PLAYER_TEXT_Y 400
 
-#define DEALER_TEXT_X 400
+#define DEALER_TEXT_X 455
 #define DEALER_TEXT_Y 200
 
 #define GAMEOVER_TEXT_X 300
@@ -28,10 +28,21 @@
 #define PLAYER_FIRST_CARD_Y 450
 #define DEALER_FIRST_CARD_Y 50
 
+
+#define BLACKJACK_HIT_BUTTON_X 295
+#define BLACKJACK_HIT_BUTTON_Y 400
+
+#define BLACKJACK_STAND_BUTTON_X 595
+#define BLACKJACK_STAND_BUTTON_Y 400
+
 class MainWindow;
 
 class DrawingWidget: public QWidget {
     Q_OBJECT
+
+    public slots:
+        void blackjackHitActionSlot();
+
     public:
         DrawingWidget(MainWindow *parent = 0);
         ~DrawingWidget();
@@ -39,7 +50,7 @@ class DrawingWidget: public QWidget {
         void newBlackjackGame();
         void newPokerGame();
         void newGameGenericSetup();
-        QPointF* getImagePointIndex(Card* card);
+        QPointF getImagePointIndex(Card* card);
 
     protected:
         //void mousePressEvent(QMouseEvent *event);
@@ -53,7 +64,7 @@ class DrawingWidget: public QWidget {
         bool drawDeck;
         QPixmap cardsImage;
         QSizeF cardSize;
-        QPointF cardPoints[53];
+        QPointF cardPoints[52];
 };
 
 #endif // DRAWINGWIDGET_H

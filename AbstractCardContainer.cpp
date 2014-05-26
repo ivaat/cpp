@@ -17,11 +17,17 @@ void AbstractCardContainer::removeCardsAt(vector<unsigned short> indexes) {
 
     if (indexes[0] >= size()) return; //TODO - või peaks errori viskama?
 
+    //TODO - pane seda alumist meetodit kasutama
     unsigned short i;
     for (i = 0; i < indexes.size(); i++) {
         delete cards.at(indexes[i]);
         cards.erase(cards.begin() + indexes[i]); //TODO - testi et ikka õige asja deleteb
     }
+}
+
+void AbstractCardContainer::removeSingleCardAt(unsigned short index) {
+    if (index >= cards.size()) return;
+    cards.erase(cards.begin() + index);
 }
 
 unsigned short AbstractCardContainer::size() {

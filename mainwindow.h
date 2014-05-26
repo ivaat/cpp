@@ -19,9 +19,9 @@ public slots:
    void newBlackjackGameSlot();
    void newPokerGameSlot();
 
+
 protected:
 
-   AbstractCardGame* currentGame;
    void initMenus();
    void initWidgets();
 
@@ -39,6 +39,7 @@ public:
     bool currentGameOver();
     unsigned short playerScore;
     unsigned short dealerScore;
+    AbstractCardGame* currentGame; //todo - getterisse?
 
     MainWindow(QWidget* parent = 0);
     ~MainWindow();
