@@ -32,7 +32,8 @@ HEADERS  += mainwindow.h \
     AbstractCardContainer.h \
     AbstractCardGame.h \
     AbstractHandEvaluator.h \
-    DrawingWidget.h
+    DrawingWidget.h \
+    SupportedGameTypes.h
 
 RESOURCES += \
     assets.qrc

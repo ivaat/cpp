@@ -39,11 +39,10 @@ DrawingWidget::DrawingWidget(MainWindow *parent)
         }
         yPos++;
     }
-    cardPoints[52] = QPointF(1798.0, 418.0);
+    cardPoints[52] = QPointF(1798.0, 418.0); //TODO - mõtle kas seda on vaja..
 
 
     drawDeck = false;
-    //TODO - kuidas teha nii et ta image failid kaasa võtab?
 
     setStyleSheet("border-image: url(:/assets/assets/background2.jpeg)");
 
@@ -64,6 +63,16 @@ void DrawingWidget::paintEvent(QPaintEvent *event) {
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 
     drawDeck = true;
+
+
+    QFont font=painter.font() ;
+    font.setPointSize (18);
+    font.setWeight(QFont::DemiBold);
+    painter.setFont(font);
+    painter.setPen(Qt::white);
+
+    painter.drawText(QPoint(PLAYER_TEXT_X,PLAYER_TEXT_Y), "PLAYER");
+    painter.drawText(QPoint(DEALER_TEXT_X,DEALER_TEXT_Y), "DEALER");
 
     if (drawDeck) {
         //TODO - defineeri kaartide laius ja pikkus
@@ -110,17 +119,12 @@ QPointF* DrawingWidget::getImagePointIndex(Card* card) {
 
 void DrawingWidget::newBlackjackGame() {
     newGameGenericSetup();
-
-
 }
 
 //paremini teha..
 
 void DrawingWidget::newPokerGame() {
     newGameGenericSetup();
-
-
-
 }
 
 

@@ -5,6 +5,8 @@
 #include "AbstractCardContainer.h"
 #include "AbstractCardGame.h"
 #include "DrawingWidget.h"
+#include "SupportedGameTypes.h"
+#include "BlackJackGame.h"
 
 class DrawingWidget;
 class QMenu;
@@ -18,6 +20,8 @@ public slots:
    void newPokerGameSlot();
 
 protected:
+
+   AbstractCardGame* currentGame;
    void initMenus();
    void initWidgets();
 
@@ -32,6 +36,10 @@ protected:
        QAction* aboutAction;
     
 public:
+    bool currentGameOver();
+    unsigned short playerScore;
+    unsigned short dealerScore;
+
     MainWindow(QWidget* parent = 0);
     ~MainWindow();
 };

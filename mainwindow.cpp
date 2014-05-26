@@ -19,9 +19,11 @@
 //TODO - pane siia ka mingi activegame asi..
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent) {
+    : QMainWindow(parent) {    
 
-    this->setFixedSize(1000, 800); //TODO - mingi õigem state
+    currentGame = 0;
+
+    this->setFixedSize(1000, 670); //TODO - mingi õigem state
     this->setWindowTitle("Card Games");
 
     //m_state = INACTIVE; - TODO - pane mingi õige state
@@ -31,13 +33,19 @@ MainWindow::MainWindow(QWidget *parent)
     initMenus();
 }
 
+bool MainWindow::currentGameOver() {
+    if (&currentGame == 0) return true;
+    else return currentGame->getState() == FINISHED;
+}
+
 MainWindow::~MainWindow() {
     //jätan tühjaks..? või pead need kaartid ja asjad ära kustutama..?
 }
 
 void MainWindow::newBlackjackGameSlot() {
-    //TODO
-
+    //TODO - alusta uut currentGamei siin
+    //TODO - blackjack, poker jne ise enda kontsruktoris kutsuvad superit välja nagu vaja
+    //vastava enumiga siis
     drawingWidget->newBlackjackGame();
 }
 

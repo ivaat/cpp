@@ -4,6 +4,7 @@
 #include "Deck.h"
 #include "Card.h"
 #include "Hand.h"
+#include "SupportedGameTypes.h"
 
 
 enum State {
@@ -16,14 +17,14 @@ enum State {
     FINISHED                    //mäng läbi
 };
 
-
 class AbstractCardGame {
 
     private:
         State state;
+        SupportedGameTypes type;
 
     protected:
-         virtual void init(); //TODO - või teha see konstruktoriks? mõte ju sama
+        AbstractCardGame(SupportedGameTypes sgt);
 
     public:
 
@@ -32,6 +33,8 @@ class AbstractCardGame {
         Hand dealerHand;
 
         void transferCard(Card* card);  //deck > hand
+        State getState();
+        SupportedGameTypes getType();
 };
 
 #endif

@@ -13,8 +13,17 @@
 #define CARDS_STARTING_X 78
 #define CARDS_STARTING_Y 46
 
-#define CARDS_DISTANCE_X 10
-#define CARDS_DISTANCE_Y 11
+#define CARDS_DISTANCE_X 9.5
+#define CARDS_DISTANCE_Y 11.5
+
+#define PLAYER_TEXT_X 400
+#define PLAYER_TEXT_Y 500
+
+#define DEALER_TEXT_X 400
+#define DEALER_TEXT_Y 200
+
+#define GAMEOVER_TEXT_X 300
+#define GAMEOVER_TEXT_Y 350
 
 class MainWindow;
 

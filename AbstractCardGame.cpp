@@ -2,12 +2,14 @@
 
 using namespace std;
 
-
-
-void AbstractCardGame::init() {
-    //TODO
+AbstractCardGame::AbstractCardGame(SupportedGameTypes sgt) {
+    type = sgt;
 }
 
 void AbstractCardGame::transferCard(Card* card) {
 
+}
+
+State AbstractCardGame::getState() {
+    return state;
 }
