@@ -54,6 +54,23 @@ DrawingWidget::~DrawingWidget() {
 
 }
 
+unsigned short DrawingWidget::calculateFirstCardStartingX(unsigned short cardsAmount) {
+
+    unsigned short ret = 0;
+
+    if (cardsAmount % 2 == 0)    {
+        ret = ((cardsAmount / 2) * CARD_WIDTH) + (((cardsAmount / 2) - 1) * CARDS_DISTANCE_X);
+    }
+
+    else {
+        ret =  ((cardsAmount-1) / 2) * CARD_WIDTH;
+        ret += (cardsAmount-1) / 2 * CARDS_DISTANCE_X;
+        ret += CARD_WIDTH / 2;
+    }
+
+    return ret;
+}
+
 void DrawingWidget::paintEvent(QPaintEvent *event) {
     QStyleOption opt;
     opt.init(this);

@@ -1,18 +1,26 @@
 #include "Deck.h"
 
-using namespace std;
+#include <algorithm>    // std::random_shuffle
 
+Deck::Deck(DeckSize size) {
+    //TODO - suuruselt sõltuvalt on kas alguskaart two või six
 
-/*
-for (int r = RankFirst; r <= RankLast; ++r) {
-    for (int s = SuitFirst; s <= SuitLast; ++s) {
-        deck.add(Card((Rank)r, (Suit)s));
+    Card* tmp;
+
+    for (int r = Two; r <= Ace; ++r) {
+        for (int s = Diamonds; s <= Spades; ++s) {
+            //TODO - hävitada ka kaartid pärast
+            tmp = new Card((Rank)r, (Suit)s);
+            AbstractCardContainer::addCard(tmp);
+        }
     }
+
+    shuffle();
 }
 
-for (int r = RankFirst; r <= RankLast; ++r) {
-    for (int s = SuitFirst; s <= SuitLast; ++s) {
-        deck.add(Card((Rank)r, (Suit)s));
-    }
+
+void Deck::shuffle() {
+    std::random_shuffle(cards.begin(), cards.end());
 }
-*/
+
+

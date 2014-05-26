@@ -6,7 +6,7 @@
 #include "AbstractCardGame.h"
 #include "DrawingWidget.h"
 #include "SupportedGameTypes.h"
-#include "BlackJackGame.h"
+#include "BlackjackGame.h"
 
 class DrawingWidget;
 class QMenu;

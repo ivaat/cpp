@@ -25,6 +25,9 @@
 #define GAMEOVER_TEXT_X 300
 #define GAMEOVER_TEXT_Y 350
 
+#define PLAYER_FIRST_CARD_Y 450
+#define DEALER_FIRST_CARD_Y 50
+
 class MainWindow;
 
 class DrawingWidget: public QWidget {
@@ -43,6 +46,7 @@ class DrawingWidget: public QWidget {
         //void mouseReleaseEvent(QMouseEvent *event);
         //void mouseMoveEvent(QMouseEvent *event);
         void paintEvent(QPaintEvent *event);
+        unsigned short calculateFirstCardStartingX(unsigned short cardsAmount);
 
 
         MainWindow *mainWindow;

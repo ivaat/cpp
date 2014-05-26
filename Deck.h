@@ -22,10 +22,8 @@ class Deck : public AbstractCardContainer {
         static const Rank RANKLAST = Ace;
 
     public:
-
-        //Deck(DeckSize size);
-       // void init(); //paneb paki algseisu
-        //void shuffle(); //automaatselt kutsutakse välja konstruktoris ka..
+        Deck(DeckSize size);
+        void shuffle(); //automaatselt kutsutakse välja konstruktoris ka..
 
 };
 

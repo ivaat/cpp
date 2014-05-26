@@ -19,18 +19,16 @@ enum State {
 
 class AbstractCardGame {
 
-    private:
+    protected:
+        AbstractCardGame(SupportedGameTypes sgt, DeckSize deckSize);
         State state;
         SupportedGameTypes type;
 
-    protected:
-        AbstractCardGame(SupportedGameTypes sgt);
-
     public:
 
-        Deck deck;
-        Hand playerHand;
-        Hand dealerHand;
+        Deck* deck;
+        Hand* playerHand;
+        Hand* dealerHand;
 
         void transferCard(Card* card);  //deck > hand
         State getState();

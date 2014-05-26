@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     Hand.cpp \
     Deck.cpp \
     Card.cpp \
-    DrawingWidget.cpp
+    DrawingWidget.cpp \
+    BlackjackGame.cpp
 
 HEADERS  += mainwindow.h \
     PokerHandEvaluator.h \
@@ -28,12 +29,12 @@ HEADERS  += mainwindow.h \
     Deck.h \
     Card.h \
     BlackJackHandEvaluator.h \
-    BlackJackGame.h \
     AbstractCardContainer.h \
     AbstractCardGame.h \
     AbstractHandEvaluator.h \
     DrawingWidget.h \
-    SupportedGameTypes.h
+    SupportedGameTypes.h \
+    BlackjackGame.h
 
 RESOURCES += \
     assets.qrc

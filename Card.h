@@ -31,7 +31,7 @@ class Card {
 
 public:
 
-    //Card(Rank rank, Suit suit);
+    Card(Rank in_rank, Suit in_suit);
 
     Rank rank;
     Suit suit;
