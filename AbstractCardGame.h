@@ -6,6 +6,7 @@
 #include "Hand.h"
 #include "SupportedGameTypes.h"
 #include <QString>
+#include "DrawingWidget.h"
 
 
 enum State {
@@ -21,7 +22,11 @@ enum State {
 class AbstractCardGame {
 
     protected:
-        AbstractCardGame(SupportedGameTypes sgt, DeckSize deckSize);
+        AbstractCardGame(SupportedGameTypes sgt,
+                         DeckSize deckSize,
+                         DrawingWidget* in_widget);
+
+        DrawingWidget* widget;
 
 
 

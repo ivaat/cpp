@@ -38,7 +38,6 @@ protected:
 public:
     bool currentGameOver();
     unsigned short playerScore;
-    unsigned short dealerScore;
     AbstractCardGame* currentGame; //todo - getterisse?
 
     MainWindow(QWidget* parent = 0);

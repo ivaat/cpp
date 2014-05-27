@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_state = INACTIVE; - TODO - pane mingi õige state
 
     //TODO - võibolla pead need ümber tõstma!
+    playerScore = 0;
     initWidgets();
     initMenus();
 }
@@ -47,7 +48,7 @@ void MainWindow::newBlackjackGameSlot() {
     //TODO - alusta uut currentGamei siin
     //TODO - blackjack, poker jne ise enda kontsruktoris kutsuvad superit välja nagu vaja
     //vastava enumiga siis
-    currentGame = new BlackjackGame(Large);
+    currentGame = new BlackjackGame(Large, drawingWidget);
     drawingWidget->newBlackjackGame();
 }
 
@@ -70,7 +71,7 @@ void MainWindow::initMenus() {
     quitAction->setToolTip(QString("Quits this application"));
     quitAction->setWhatsThis(QString("Activate this item to quit this application. You will"
                                   " be asked for confirmation."));
-    fileMenu->addAction(quitAction);
+
 
     connect(quitAction, SIGNAL(triggered()),
             this, SLOT(close()));
@@ -80,7 +81,7 @@ void MainWindow::initMenus() {
     newPokerAction->setStatusTip(QString("Starts a new game of poker."));
     newPokerAction->setToolTip(QString("Starts a new game of poker."));
     newPokerAction->setWhatsThis(QString("Click this to start a new game of poker. If you're currently in the middle of a game, you will lose the current game."));
-    fileMenu->addAction(newPokerAction);
+
 
     connect(newPokerAction, SIGNAL(triggered()),
             this, SLOT(newPokerGameSlot()));
@@ -90,10 +91,15 @@ void MainWindow::initMenus() {
     newBlackjackAction->setStatusTip(QString("Starts a new game of blackjack."));
     newBlackjackAction->setToolTip(QString("Starts a new game of blackjack."));
     newBlackjackAction->setWhatsThis(QString("Click this to start a new game of blackjack. If you're currently in the middle of a game, you will lose the current game."));
-    fileMenu->addAction(newBlackjackAction);
+
 
     connect(newBlackjackAction, SIGNAL(triggered()),
             this, SLOT(newBlackjackGameSlot()));
+
+
+    fileMenu->addAction(newBlackjackAction);
+    fileMenu->addAction(newPokerAction);
+    fileMenu->addAction(quitAction);
 }
 
 void MainWindow::initWidgets() {

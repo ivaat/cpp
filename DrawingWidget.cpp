@@ -103,9 +103,18 @@ void DrawingWidget::paintEvent(QPaintEvent *event) {
         //pane ka see playeri tekst paremasse kohta
         if (mainWindow->currentGame->type == BLACKJACK) {
             BlackjackGame* game = (BlackjackGame*) mainWindow->currentGame;
-            QString value = QString::number(game->getHandStrength(mainWindow->currentGame->playerHand));
+            unsigned short playerStrength = game->getHandStrength(mainWindow->currentGame->playerHand);
+            QString value;
+            if (playerStrength <= 21) value = QString::number(playerStrength);
+            else value = "BUST!";
             painter.drawText(QPoint(PLAYER_TEXT_X,PLAYER_TEXT_Y), "PLAYER: " + value);
-            painter.drawText(QPoint(DEALER_TEXT_X,DEALER_TEXT_Y), "DEALER");
+
+            if (mainWindow->currentGame->state >= WAITING_FOR_DEALER) {
+                unsigned short dealerStrength = game->getHandStrength(mainWindow->currentGame->dealerHand);
+                if (dealerStrength <= 21) value = QString::number(dealerStrength);
+                else value = "BUST!";
+                painter.drawText(QPoint(DEALER_TEXT_X,DEALER_TEXT_Y), "DEALER: " + value);
+            }
         }
 
 
@@ -119,6 +128,19 @@ void DrawingWidget::paintEvent(QPaintEvent *event) {
                             PLAYER_FIRST_CARD_Y);
             QRectF target(topLeft, cardSize);
             QPointF src1 = getImagePointIndex(mainWindow->currentGame->playerHand->at(i));
+            QRectF source(src1, cardSize);
+            painter.drawPixmap(target, cardsImage, source);
+        }
+
+        int dealerSize = mainWindow->currentGame->dealerHand->size();
+        int dealerStartingX = calculateFirstCardStartingX(dealerSize);
+
+        for (int i = 0; i < dealerSize; i++) {
+            int currentX = dealerStartingX + i * (CARD_WIDTH + CARDS_DISTANCE_X);
+            QPointF topLeft(currentX,
+                            DEALER_FIRST_CARD_Y);
+            QRectF target(topLeft, cardSize);
+            QPointF src1 = getImagePointIndex(mainWindow->currentGame->dealerHand->at(i));
             QRectF source(src1, cardSize);
             painter.drawPixmap(target, cardsImage, source);
         }

@@ -4,7 +4,9 @@
 using namespace std;
 
 AbstractCardGame::AbstractCardGame(SupportedGameTypes sgt,
-                                   DeckSize deckSize) {
+                                   DeckSize deckSize,
+                                   DrawingWidget* in_widget) {
+    widget = in_widget;
     type = sgt;
     deck = new Deck(deckSize); //TODO - vaata et pärast hävitatud ka saaks!!!
     //deck = new Deck(deckSize);
