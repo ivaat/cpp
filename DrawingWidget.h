@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QSizeF>
 #include <QPointF>
+#include <QPushButton>
 #include "Card.h"
 
 #define CARD_WIDTH 123 //TODO - adjustida kõiki neid, arvatavasti peab komakohaga olema
@@ -41,7 +42,9 @@ class DrawingWidget: public QWidget {
     Q_OBJECT
 
     public slots:
+        //blackjack
         void blackjackHitActionSlot();
+        void blackjackStandActionSlot();
 
     public:
         DrawingWidget(MainWindow *parent = 0);
@@ -65,6 +68,10 @@ class DrawingWidget: public QWidget {
         QPixmap cardsImage;
         QSizeF cardSize;
         QPointF cardPoints[52];
+
+        //BLACKJACK
+        QPushButton* hit_button;
+        QPushButton* stand_button;
 };
 
 #endif // DRAWINGWIDGET_H

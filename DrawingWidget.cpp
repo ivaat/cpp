@@ -86,14 +86,27 @@ void DrawingWidget::paintEvent(QPaintEvent *event) {
 
     if (drawDeck) {
 
+        if (mainWindow->currentGame->state >= WAITING_FOR_DEALER) {
+            hit_button->setEnabled(false);
+            stand_button->setEnabled(false);
+        }
+
         QFont font=painter.font() ;
         font.setPointSize (18);
         font.setWeight(QFont::DemiBold);
         painter.setFont(font);
         painter.setPen(Qt::white);
 
-        painter.drawText(QPoint(PLAYER_TEXT_X,PLAYER_TEXT_Y), "PLAYER: " + mainWindow->currentGame->getHandStrength(mainWindow->currentGame->playerHand));
-        painter.drawText(QPoint(DEALER_TEXT_X,DEALER_TEXT_Y), "DEALER");
+        //TODO - saad siiski virtualiks teha selle meetodi
+        //mul oli BlackjackGame:: jäänud cpp-s ette panemata
+        //mine või lolliks
+        //pane ka see playeri tekst paremasse kohta
+        if (mainWindow->currentGame->type == BLACKJACK) {
+            BlackjackGame* game = (BlackjackGame*) mainWindow->currentGame;
+            QString value = QString::number(game->getHandStrength(mainWindow->currentGame->playerHand));
+            painter.drawText(QPoint(PLAYER_TEXT_X,PLAYER_TEXT_Y), "PLAYER: " + value);
+            painter.drawText(QPoint(DEALER_TEXT_X,DEALER_TEXT_Y), "DEALER");
+        }
 
 
         //TODO - defineeri kaartide laius ja pikkus
@@ -135,13 +148,22 @@ void DrawingWidget::blackjackHitActionSlot() {
 }
 
 
+void DrawingWidget::blackjackStandActionSlot() {
+    qDebug() << "boo";
+    BlackjackGame* game = (BlackjackGame*) mainWindow->currentGame;
+    game->playerStand();
+    qDebug() << "boo2";
+    update();
+}
+
+
 void DrawingWidget::newBlackjackGame() {
     drawDeck = true;
     newGameGenericSetup();
 
 
 
-    QPushButton *hit_button = new QPushButton(this);
+    hit_button = new QPushButton(this);
     hit_button->setText(tr("HIT"));
     hit_button->move(BLACKJACK_HIT_BUTTON_X,
                      BLACKJACK_HIT_BUTTON_Y);
@@ -150,12 +172,13 @@ void DrawingWidget::newBlackjackGame() {
     connect(hit_button, SIGNAL(released()), this, SLOT(blackjackHitActionSlot()));
     hit_button->show();
 
-    QPushButton *stand_button = new QPushButton(this);
+    stand_button = new QPushButton(this);
     stand_button->setText(tr("STAND"));
     stand_button->move(BLACKJACK_STAND_BUTTON_X,
                        BLACKJACK_STAND_BUTTON_Y);
     stand_button->setStyleSheet("color: red; background-color: white; border-image: none; border-style: outset; border-width: 2px; border-radius: 10px; border-color: beige; font: bold 14px; min-width: 5em; padding: 6px;");
     stand_button->setAutoFillBackground(true);
+    connect(stand_button, SIGNAL(released()), this, SLOT(blackjackStandActionSlot()));
     stand_button->show();
 }
 

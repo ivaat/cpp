@@ -31,8 +31,3 @@ void AbstractCardGame::pickUpCard(Hand* hand) {
 State AbstractCardGame::getState() {
     return state;
 }
-
-QString AbstractCardGame::getHandStrength(Hand* hand) {
-    qDebug() << "boooooooooooooooooo";
-    return "";
-}
